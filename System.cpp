@@ -13,11 +13,11 @@
 
 void System:: LoadInitialDataBase()
 {
-  AdminUser Hussein("Hussein","Scorpio1243","Husoali1311@outlook.com");
-  CustomerUser Youssef("Youssef","Joe1243","Joeali@gmail.com");
+//  User Hussein("Hussein","Scorpio1243","Husoali1311@outlook.com",AdminUserAccount);
+//  User Youssef("Youssef","Joe1243","Joeali@gmail.com",CustomerUserAccount);
 
-  CustomerUsers.push_back(Youssef);
-  AdminUsers.push_back(Hussein);
+  MyUsers.AddAdminUser("Hussein","Scorpio1243","Husoali1311@outlook.com");
+  MyUsers.AddUser("Youssef","Joe1243","Joeali@gmail.com");
 
   Book HarryPotter ("HarryPotter", "J.K Rowling", 2);
 
@@ -30,7 +30,7 @@ void System:: LoadInitialDataBase()
 
   MyLibrary.PrintAvailableBooks();
 
-  Hussein.AddBook()
+//  Hussein.AddBook()
 
 }
 
@@ -45,8 +45,7 @@ void System:: signup()
   cout<<"Email : "<<endl;
   cin>>Email;
 
-  CustomerUser NewUser (Name, Password, Email);
-  CustomerUsers.push_back(NewUser);
+  MyUsers.AddUser(Name, Password, Email);
 
 }
 
@@ -60,29 +59,18 @@ bool System:: login()
   cin>>Password;
 
   /* Search for the User in our database */
-  for (auto it : CustomerUsers)
+  bool RetResult = MyUsers.LogIn(Name, Password);
+
+  if (RetResult == false)
     {
-      if((it.GetName() == Name) && (it.GetPassword() == Password))
-	{
-	  cout<<"Welcome Mr/Mrs "<<Name<<endl;
-	  CurrentUser = (User*)&it;
-	  return true;
-	}
+      cout<<"Wrong Name or Password"<<endl;
+    }
+  else if ( RetResult == true)
+    {
+      cout<<"Welcome Mr/Mrs "<<Name<<endl;
     }
 
-  for (auto it : AdminUsers)
-      {
-        if((it.GetName() == Name) && (it.GetPassword() == Password))
-  	{
-  	  cout<<"Welcome Mr/Mrs "<<Name<< " Your are admin "<<endl;
-  	  CurrentUser = (User*)&it;
-  	  return true;
-  	}
-      }
-
-  cout<<"Wrong Name or Password"<<endl;
-
-  return false;
+  return RetResult;
 
 
 }
@@ -90,9 +78,25 @@ bool System:: login()
 
 void System:: logout()
 {
-  string Name = CurrentUser->GetName();
+  string Name = (MyUsers.GetCurrentUser())->GetName();
   cout<<"Good Bye Mr "<<Name<<endl;
-  CurrentUser = nullptr;
+  MyUsers.Logout();
 }
 
 
+void System:: AddBook()
+{
+  UserType Usertype = (MyUsers.GetCurrentUser())->GetUserType();
+  if(Usertype != AdminUserAccount)
+    {
+      cout<<"you are not admin you can not add book"<<endl;
+      return;
+    }
+
+  // TODO we shouldnot use Book in System Module
+  // change Add Book to take the content as parameters not a book object
+  vector<string> PageContent = {"Hi this is Naruto"};
+  Book Naruto ("Naruto","Kikshobo",1,PageContent);
+  MyLibrary.AddBook(Naruto);
+
+}

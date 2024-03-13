@@ -39,7 +39,7 @@ class Library
 
     int FindBook(string BookName);
   public:
-    void AddBook(Book CurrentBook);
+    void AddBook(const Book& CurrentBook);
     void RemoveBook(string BookName);
     vector<pair<Book,unsigned int>> GetAvailableBooks();
     void PrintAvailableBooks();

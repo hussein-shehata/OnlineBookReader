@@ -18,60 +18,49 @@ typedef enum
 {
   CustomerUserAccount,
   AdminUserAccount
-} UserTypes;
+} UserType;
 
 
 class User {
-  protected:
+  private:
     string Name ;
     string Password;
     string Email;
-
-  public:
-    User(string Name, string Password, string Email) :
-      Name(Name), Password(Password), Email(Email)
-    {
-
-    }
-    void ViewProfile();
-    void Logout();
-    string GetName();
-    string GetPassword();
-//    virtual void GetUserType();
-};
-
-
-class CustomerUser : public User{
-  private:
+    UserType IsUserAdmin = CustomerUserAccount;
     vector<Book> ReadingHistory;
 
   public:
-    CustomerUser(string Name, string Password, string Email):
-      User( Name,  Password,  Email)
-    {
+    User(string Name, string Password, string Email, UserType IsUserAdmin);
 
-    }
+    void ViewProfile();
+    string GetName();
+    string GetPassword();
+    UserType GetUserType();
+
     void ViewReadingHistory();
-    void ViewAvailableBooks();
-    void ReadBook(unsigned int BookNumber);
-//    void GetUserType();
+    void ReadBook(unsigned int BookIndex);
 
+
+    void AddBookToReadingHistory(const Book& NewBook);
+    void RemoveBookFromReadingHistory(string BookName);
 };
 
 
-class AdminUser : public User{
-  private :
+class UserManager{
+  private:
+    vector<User> RegisteredUsers;
+    User* CurrentUser = nullptr;
   public:
-    AdminUser(string Name, string Password, string Email):
-      User( Name,  Password,  Email)
-    {
+    void AddUser(string Name, string Password, string Emai);
+    void AddAdminUser(string Name, string Password, string Emai);
+    void RemoveUser(string UserName);
+    bool LogIn(string UserName, string Password);
+     User* GetCurrentUser();
+    void Logout();
+//    bool FindUser(string UserName, string UserPassword);
 
-    }
 
-//    void AddBook();
-//    void GetUserType();
 
 };
-
 
 #endif /* USERS_HPP_ */

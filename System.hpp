@@ -15,15 +15,16 @@
 class System{
   private:
     Library MyLibrary;
-    vector<CustomerUser> CustomerUsers;
-    vector<AdminUser> AdminUsers;
-    User* CurrentUser; // Regardless if he was admin or customer we dont know , i will use polyramphisim in deducing who he is
+    UserManager MyUsers;
 
   public:
     void LoadInitialDataBase();
     void logout();
     bool login();
     void signup();
+
+    void AddBook();
+    void PrintAllBooks();
 
 
 };

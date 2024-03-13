@@ -20,7 +20,10 @@ int main()
   MySystem.LoadInitialDataBase();
 
   MySystem.login();
+  MySystem.AddBook();
 
+  MySystem.login();
+  MySystem.AddBook();
   MySystem.logout();
 asm("NOP");
   return 0;

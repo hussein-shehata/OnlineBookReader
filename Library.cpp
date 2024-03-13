@@ -63,7 +63,7 @@ int Library::FindBook(string BookName)
   return -1;
 }
 
-void Library::AddBook(Book CurrentBook)
+void Library::AddBook(const Book& CurrentBook)
 {
   int index = Library::FindBook(CurrentBook.GetBookName());
   if( index != -1)
