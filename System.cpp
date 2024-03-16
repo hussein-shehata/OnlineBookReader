@@ -86,6 +86,11 @@ void System:: logout()
 
 void System:: AddBook()
 {
+  if(MyUsers.GetCurrentUser() == nullptr)
+    {
+      cout<<"There is no user logged in"<<endl;
+      return;
+    }
   UserType Usertype = (MyUsers.GetCurrentUser())->GetUserType();
   if(Usertype != AdminUserAccount)
     {
@@ -99,4 +104,38 @@ void System:: AddBook()
   Book Naruto ("Naruto","Kikshobo",1,PageContent);
   MyLibrary.AddBook(Naruto);
 
+}
+
+void System::PrintAllBooks()
+{
+  MyLibrary.PrintAvailableBooks();
+}
+
+
+void System::NextPageCommand()
+{
+  MyLibrary.NextPage();
+}
+
+
+void System::PrevPageCommand()
+{
+  MyLibrary.PrevPage();
+}
+
+
+void System::StopReadingCommand()
+{
+
+}
+
+
+
+void System::SelectBookCommand(unsigned int BookNumber, BookSource BookSource)
+{
+  MyLibrary.SelectBook(BookNumber, BookSource, MyUsers.GetCurrentUser());
+}
+void System::ReadCommand()
+{
+  MyLibrary.ReadBook();
 }

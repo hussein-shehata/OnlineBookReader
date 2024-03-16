@@ -6,9 +6,9 @@
  */
 
 
-#include "Users.hpp"
 #include "Library.hpp"
 #include "System.hpp"
+#include "UserManager.hpp"
 
 int main()
 {
@@ -24,6 +24,12 @@ int main()
 
   MySystem.login();
   MySystem.AddBook();
+
+  MySystem.PrintAllBooks();
+  MySystem.SelectBookCommand(0, FromAvailableBooks);
+  MySystem.ReadCommand();
+  MySystem.NextPageCommand();
+  MySystem.PrevPageCommand();
   MySystem.logout();
 asm("NOP");
   return 0;

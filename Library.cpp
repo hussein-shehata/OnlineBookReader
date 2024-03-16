@@ -10,41 +10,11 @@
 //#include <utility>
 //#include <tuple>
 
+#include "UserManager.hpp"
+
 using namespace std;
 
-/******************** Book Class Functions*************************/
-Book::Book(string BookName, string AuthorName, int NumberOfPages):
-BookName(BookName), AuthorName(AuthorName), NumberOfPages(NumberOfPages)
-{
-/*** Take the content of the book ****/
-string CurrentPageContent;
-for (int idx = 1; idx <= NumberOfPages; idx++)
-	{
-	  printf("Please Enter the content for page %d / %u :\n",idx, NumberOfPages);
-	  cin >> CurrentPageContent;
-	  PageContent.push_back(CurrentPageContent);
 
-	}
-}
-
-
-Book::Book(string BookName, string AuthorName, int NumberOfPage, vector<string> PagesContent):
-  BookName(BookName), AuthorName(AuthorName), NumberOfPages(NumberOfPage), PageContent(PagesContent)
-{
-
-}
-
-string Book::GetPageContent(unsigned int PageNumber)const
-{
-  /* 1 Biased */
-  string RetString = PageContent[PageNumber - 1];
-  return RetString;
-}
-
-const string& Book::GetBookName()const
-{
-  return this->BookName;
-}
 
 
 /************** Library Functions Implementation ********/
@@ -115,3 +85,42 @@ void Library::PrintAvailableBooks()
     }
 }
 
+
+void Library::SelectBook(unsigned int BookNumber, BookSource BookSource, User* CurrentUser) //if it was from the reading history or the new one
+{
+  if(BookSource == FromReadingHistory)
+    {
+      CurrentBook.first = &((CurrentUser->GetReadingHistory())[BookNumber].first);
+      CurrentBook.second = (CurrentUser->GetReadingHistory())[BookNumber].second;
+    }
+
+  else if(BookSource == FromAvailableBooks)
+      {
+        CurrentBook.first = & (AvailableBooks[BookNumber].first);
+        CurrentBook.second = 1; //First Page
+        CurrentUser->AddBookToReadingHistory(*(CurrentBook.first));
+
+      }
+}
+
+
+
+
+void Library::ReadBook()
+{
+  string CurrentPage = (CurrentBook.first->GetPageContent(CurrentBook.second));
+  cout<<CurrentPage<<endl;
+}
+
+
+void Library::NextPage()
+{
+  CurrentBook.second++;
+  Library::ReadBook();
+}
+
+void Library::PrevPage()
+{
+  CurrentBook.second--;
+  Library::ReadBook();
+}

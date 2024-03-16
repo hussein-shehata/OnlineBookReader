@@ -7,8 +7,8 @@
 
 #ifndef SYSTEM_HPP_
 #define SYSTEM_HPP_
-#include "Users.hpp"
 #include "Library.hpp"
+#include "UserManager.hpp"
 
 
 
@@ -25,6 +25,12 @@ class System{
 
     void AddBook();
     void PrintAllBooks();
+
+    void SelectBookCommand(unsigned int BookNumber, BookSource BookSource);
+    void ReadCommand();
+    void NextPageCommand();
+    void PrevPageCommand();
+    void StopReadingCommand();
 
 
 };

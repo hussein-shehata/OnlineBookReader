@@ -12,22 +12,16 @@
 #include <vector>
 using namespace std;
 
-class Book{
-  private :
-    string BookName;
-    string AuthorName;
-    unsigned int NumberOfPages;
-    vector<string> PageContent;
+#include "User.hpp"
+#include "Book.hpp"
 
-  public:
-    Book(string BookName, string AuthorName, int NumberOfPages);
-    Book(string BookName, string AuthorName, int NumberOfPage, vector<string> PagesContent);
-
-    string GetPageContent(unsigned int PageNumber)const;
-    const string& GetBookName()const;
+typedef enum
+{
+  FromReadingHistory,
+  FromAvailableBooks
+}BookSource;
 
 
-};
 
 
 class Library
@@ -37,12 +31,21 @@ class Library
     vector<pair<Book,unsigned int>> AvailableBooks;
     unsigned int NumberOfBooks = 0;
 
+    pair<const Book*, unsigned int> CurrentBook = {nullptr,0};
+
     int FindBook(string BookName);
   public:
     void AddBook(const Book& CurrentBook);
     void RemoveBook(string BookName);
     vector<pair<Book,unsigned int>> GetAvailableBooks();
     void PrintAvailableBooks();
+
+    void SelectBook(unsigned int BookNumber, BookSource BookSource, User* CurrentUser);
+    void ReadBook();
+
+    void NextPage();
+    void PrevPage();
+
 
 };
 

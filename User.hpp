@@ -1,17 +1,18 @@
 /*
- * Users.hpp
+ * User.hpp
  *
- *  Created on: Mar 9, 2024
- *      Author: Scorpio
+ *  Created on: Mar 15, 2024
+ *      Author: Hussein
  */
 
-#ifndef USERS_HPP_
-#define USERS_HPP_
+#ifndef USER_HPP_
+#define USER_HPP_
 
 #include <iostream>
 //#include <string>
 #include <vector>
-#include "Library.hpp"
+#include "Book.hpp"
+
 using namespace std;
 
 typedef enum
@@ -27,7 +28,7 @@ class User {
     string Password;
     string Email;
     UserType IsUserAdmin = CustomerUserAccount;
-    vector<Book> ReadingHistory;
+    vector<pair<Book,unsigned int>> ReadingHistory; //the second member indicates the last page for each book
 
   public:
     User(string Name, string Password, string Email, UserType IsUserAdmin);
@@ -43,24 +44,13 @@ class User {
 
     void AddBookToReadingHistory(const Book& NewBook);
     void RemoveBookFromReadingHistory(string BookName);
+
+    vector<pair<Book,unsigned int>> GetReadingHistory();
 };
 
 
-class UserManager{
-  private:
-    vector<User> RegisteredUsers;
-    User* CurrentUser = nullptr;
-  public:
-    void AddUser(string Name, string Password, string Emai);
-    void AddAdminUser(string Name, string Password, string Emai);
-    void RemoveUser(string UserName);
-    bool LogIn(string UserName, string Password);
-     User* GetCurrentUser();
-    void Logout();
-//    bool FindUser(string UserName, string UserPassword);
 
 
 
-};
 
-#endif /* USERS_HPP_ */
+#endif /* USER_HPP_ */
