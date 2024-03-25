@@ -29,6 +29,7 @@ class Book{
 
     string GetPageContent(unsigned int PageNumber)const;
     const string& GetBookName()const;
+    unsigned int GetNumberOfPages()const;
 
 
 };

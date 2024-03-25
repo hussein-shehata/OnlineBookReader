@@ -72,8 +72,13 @@ void User::RemoveBookFromReadingHistory(string BookName)
 }
 
 
-vector<pair<Book,unsigned int>> User::GetReadingHistory()
+ const vector<pair<Book,unsigned int>>& User::GetReadingHistory()
 {
+   /*Information
+    * lw kont 3mltha return value kan higeb Run Time Error 3shan hwa bi3ml copy constructor
+    * l el Member ely brg3o w yrg3o l el caller f lma el caller yst5dm el member fe ai haga
+    * zy eny a3ml call el member l function 3ndo higeb values w reading 8lt */
+//   cout<<"Address inside of the function "<<&(ReadingHistory[0].first)<<endl;
   return ReadingHistory;
 }
 

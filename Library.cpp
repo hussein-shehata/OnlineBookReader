@@ -91,7 +91,7 @@ void Library::SelectBook(unsigned int BookNumber, BookSource BookSource, User* C
   if(BookSource == FromReadingHistory)
     {
       CurrentBook.first = &((CurrentUser->GetReadingHistory())[BookNumber].first);
-      CurrentBook.second = (CurrentUser->GetReadingHistory())[BookNumber].second;
+      CurrentBook.second = ((CurrentUser->GetReadingHistory())[BookNumber].second);
     }
 
   else if(BookSource == FromAvailableBooks)
@@ -115,12 +115,23 @@ void Library::ReadBook()
 
 void Library::NextPage()
 {
+
+  if( CurrentBook.second >= (CurrentBook.first->GetNumberOfPages() ) )
+    {
+      cout<<"You already reached the end of the book"<<endl;
+      return ;
+    }
   CurrentBook.second++;
   Library::ReadBook();
 }
 
 void Library::PrevPage()
 {
+ if( CurrentBook.second == 1) //Start of the book
+   {
+     cout<<"You already reached at the start of the book"<<endl;
+     return ;
+   }
   CurrentBook.second--;
   Library::ReadBook();
 }

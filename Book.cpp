@@ -41,3 +41,7 @@ const string& Book::GetBookName()const
 }
 
 
+unsigned int Book::GetNumberOfPages(void)const
+{
+  return NumberOfPages;
+}

@@ -28,7 +28,7 @@ class User {
     string Password;
     string Email;
     UserType IsUserAdmin = CustomerUserAccount;
-    vector<pair<Book,unsigned int>> ReadingHistory; //the second member indicates the last page for each book
+    vector<pair<Book,unsigned int>> ReadingHistory; //the second member indicates the last page accessed for each book
 
   public:
     User(string Name, string Password, string Email, UserType IsUserAdmin);
@@ -45,7 +45,7 @@ class User {
     void AddBookToReadingHistory(const Book& NewBook);
     void RemoveBookFromReadingHistory(string BookName);
 
-    vector<pair<Book,unsigned int>> GetReadingHistory();
+     const vector<pair<Book,unsigned int>> &GetReadingHistory();
 };
 
 

@@ -35,6 +35,11 @@ void UserManager::RemoveUser(string UserName)
 }
 User* UserManager::GetCurrentUser()
 {
+  if (CurrentUser == nullptr)
+    {
+      cout<<"There is no Current User Logged IN"<<endl;
+      exit(3);
+    }
   return CurrentUser;
 }
 
